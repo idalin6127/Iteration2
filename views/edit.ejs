@@ -1,0 +1,116 @@
+<div class="px-4 py-5 my-5 text-center">
+    <h1 class="display-5 fw-bold">Edit Your Recipe</h1>
+    <div class="col-lg-6 mx-auto">
+        <p class="lead">We can't wait to taste your culinary masterpiece. Your recipe could be the next big hit - submit
+            it
+            now!</p>
+    </div>
+</div>
+
+<div class="row justify-content-center">
+
+    <% if(infoSubmitObj !='' ) { %>
+        <div class="col-8 alert alert-success" role="alert">
+            <%= infoSubmitObj %>
+        </div>
+        <% } %>
+
+            <% if(infoErrorsObj !='' ) { %>
+                <div class="col-8 alert alert-danger" role="alert">
+                    <%= infoErrorsObj[0].message %>
+                </div>
+                <% } %>
+
+                    <div class="col-8">
+
+                        <form action="/recipes/<%= recipe._id %>/edit" enctype="multipart/form-data" method="POST">
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" name="email" id="email" class="form-control"
+                                        value="<%= recipe.email || '' %>">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="name" class="form-label">Recipe Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" required
+                                        value="<%= recipe.name || '' %>">
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="description" class="form-label">Description</label>
+                                    <textarea name="description" id="description" class="form-control" cols="30"
+                                        rows="4"><%= recipe.description || '' %></textarea>
+                                </div>
+
+                                <!-- newly added -->
+
+                                <div class="col-12">
+                                    <label for="name" class="form-label">Ingredients</label><br>
+                                    <small>Example: Ice</small>
+                                    <div class="ingredientList">
+                                        <% recipe.ingredients.forEach(function (ingredient) { %>
+                                            <div class="ingredeintDiv mb-1">
+                                                <input type="text" name="ingredients" class="form-control"
+                                                    value="<%= ingredient %>">
+                                            </div>
+                                            <% }) %>
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-outline-primary" id="addIngredientsBtn">+
+                                        Ingredient</button>
+                                </div>
+
+                                <!-- newly added -->
+
+
+                                <div class="col-12">
+                                    <label for="category">Select Category</label>
+                                    <select class="form-select form-control" name="category" aria-label="Category">
+                                        <option selected>Select Category</option>
+                                        <option value="Thai" <%=recipe.category==='Thai' ? 'selected' : '' %>>Thai
+                                        </option>
+                                        <option value="American" <%=recipe.category==='American' ? 'selected' : '' %>
+                                            >American</option>
+                                        <option value="Chinese" <%=recipe.category==='Chinese' ? 'selected' : '' %>
+                                            >Chinese</option>
+                                        <option value="Mexican" <%=recipe.category==='Mexican' ? 'selected' : '' %>
+                                            >Mexican</option>
+                                        <option value="Indian" <%=recipe.category==='Indian' ? 'selected' : '' %>>Indian
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <div class="col-12">
+                                    <label for="image">Product Image</label>
+                                    <input type="file" class="form-control" name="image" accept="image/*">
+                                </div>
+
+                                <!-- <div class="col-12">
+                                    <label for="image">Product Image</label>
+                                    <input type="file" class="form-control" name="image" accept="image/*">
+                                    <% if (recipe.image) { %>
+                                        <img src="<%= recipe.image %>" alt="Previous Image" class="mt-3"
+                                            style="max-width: 200px;">
+                                        <% } %>
+                                </div> -->
+
+
+
+
+
+
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">Submit Recipe</button>
+                                </div>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+</div>
